@@ -1,8 +1,7 @@
 package ua.javarush.encoder.utility;
 
-import ua.javarush.encoder.brutforce.BruteForce;
 import ua.javarush.encoder.crypto.CaesarCipher;
-import ua.javarush.encoder.exceptions.WrongCommandRuntimeException;
+import ua.javarush.encoder.exception.WrongCommandRuntimeException;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

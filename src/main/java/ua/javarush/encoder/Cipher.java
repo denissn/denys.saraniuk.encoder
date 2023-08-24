@@ -2,7 +2,7 @@ package ua.javarush.encoder;
 
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.utility.FileService;
-import ua.javarush.encoder.alphabets.Alphabet;
+import ua.javarush.encoder.alphabet.Alphabet;
 import ua.javarush.encoder.utility.Runner;
 
 public class Cipher {

@@ -1,8 +1,8 @@
 package ua.javarush.encoder.utility;
 
-import ua.javarush.encoder.exceptions.FileExistRuntimeException;
-import ua.javarush.encoder.exceptions.FileNotFoundRuntimeException;
-import ua.javarush.encoder.exceptions.FileWriteRuntimeException;
+import ua.javarush.encoder.exception.FileExistRuntimeException;
+import ua.javarush.encoder.exception.FileNotFoundRuntimeException;
+import ua.javarush.encoder.exception.FileWriteRuntimeException;
 
 import java.io.IOException;
 import java.nio.file.Files;

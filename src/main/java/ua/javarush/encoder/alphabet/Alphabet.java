@@ -1,8 +1,7 @@
-package ua.javarush.encoder.alphabets;
+package ua.javarush.encoder.alphabet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 public class Alphabet {
 

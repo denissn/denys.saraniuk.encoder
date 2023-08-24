@@ -1,4 +1,4 @@
-package ua.javarush.encoder.exceptions;
+package ua.javarush.encoder.exception;
 
 public class FileNotFoundRuntimeException extends RuntimeException {
     }
