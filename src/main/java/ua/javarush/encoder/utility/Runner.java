@@ -1,6 +1,6 @@
 package ua.javarush.encoder.utility;
 
-import ua.javarush.encoder.brutforce.BrutForce;
+import ua.javarush.encoder.brutforce.BruteForce;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.exceptions.WrongCommandRuntimeException;
 
@@ -28,7 +28,7 @@ public class Runner {
         if (args.length > 0) {
             command = Commands.valueOf(args[0]);
             sourceFilePath = Path.of(args[1]);
-            if (args[2] != null) {
+            if (args.length > 2) {
                 key = Integer.parseInt(args[2]);
             }
         } else {
@@ -53,7 +53,7 @@ public class Runner {
         Path destinationFilePath = getDestinationFilePath(sourceFilePath, command);
         fileService.write(destinationFilePath, outText);
 
-        consoleProvider.print("Command " + command + "completed.");
+        consoleProvider.print("Command " + command + " completed.");
 
     }
 
@@ -72,12 +72,13 @@ public class Runner {
     }
 
     private void getBrutForce(Path sourceFilePath, ArrayList<String> outText) {
-        List<String> inputLines = fileService.read(sourceFilePath);
-        BrutForce brutForce = new BrutForce(caesarCipher);
-        int key = brutForce.getBrutForсe(inputLines);
+        throw new RuntimeException("BRUTE_FORCE in construction...");
+        /*List<String> inputLines = fileService.read(sourceFilePath);
+        BruteForce bruteForce = new BruteForce(caesarCipher);
+        int key = bruteForce.getBruteForce(inputLines);
         for (String line : inputLines) {
             outText.add(caesarCipher.decoder(line, key));
-        }
+        }*/
     }
 
     private Commands commandNormalize(String command) {
