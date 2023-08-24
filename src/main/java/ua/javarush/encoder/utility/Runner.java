@@ -20,12 +20,12 @@ public class Runner {
 
     public void run(String[] args) {
         ConsoleProvider consoleProvider = new ConsoleProvider();
-        Commands command;
+        Command command;
         Path sourceFilePath;
         int key = 0;
 
         if (args.length > 0) {
-            command = Commands.valueOf(args[0]);
+            command = Command.valueOf(args[0]);
             sourceFilePath = Path.of(args[1]);
             if (args.length > 2) {
                 key = Integer.parseInt(args[2]);
@@ -36,7 +36,7 @@ public class Runner {
             command = commandNormalize(consoleProvider.read());
             consoleProvider.print("Input source file path.");
             sourceFilePath = Path.of(consoleProvider.read());
-            if (command == Commands.ENCRYPT || command == Commands.DECRYPT) {
+            if (command == Command.ENCRYPT || command == Command.DECRYPT) {
                 consoleProvider.print("Input key.");
                 key = consoleProvider.readInt();
             }
@@ -80,22 +80,22 @@ public class Runner {
         }*/
     }
 
-    private Commands commandNormalize(String command) {
+    private Command commandNormalize(String command) {
         if (command == null) {
             throw new WrongCommandRuntimeException();
         }
-        if (command.equalsIgnoreCase(Commands.ENCRYPT.toString()) || command.equalsIgnoreCase("e")) {
-            return Commands.ENCRYPT;
-        } else if (command.equalsIgnoreCase(Commands.DECRYPT.toString()) || command.equalsIgnoreCase("d")) {
-            return Commands.DECRYPT;
-        } else if (command.equalsIgnoreCase(Commands.BRUTE_FORCE.toString()) || command.equalsIgnoreCase("b")) {
-            return Commands.BRUTE_FORCE;
+        if (command.equalsIgnoreCase(Command.ENCRYPT.toString()) || command.equalsIgnoreCase("e")) {
+            return Command.ENCRYPT;
+        } else if (command.equalsIgnoreCase(Command.DECRYPT.toString()) || command.equalsIgnoreCase("d")) {
+            return Command.DECRYPT;
+        } else if (command.equalsIgnoreCase(Command.BRUTE_FORCE.toString()) || command.equalsIgnoreCase("b")) {
+            return Command.BRUTE_FORCE;
         } else {
             throw new WrongCommandRuntimeException();
         }
     }
 
-    private Path getDestinationFilePath(Path sourceFileName, Commands command) {
+    private Path getDestinationFilePath(Path sourceFileName, Command command) {
         Path sourceDirPath = sourceFileName.getParent();
         String sourceShortFileName = sourceFileName.getFileName().toString();
         String destinationFileName = sourceShortFileName.substring(0, sourceShortFileName.lastIndexOf('.')) +
