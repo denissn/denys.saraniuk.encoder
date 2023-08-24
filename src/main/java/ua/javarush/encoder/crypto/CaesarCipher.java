@@ -15,13 +15,11 @@ public class CaesarCipher {
     }
 
     public String decoder(String text, int key) {
-        return symbolsShift(text, -key);
+        key = symbols.size() - key;
+        return symbolsShift(text, key);
     }
 
     private String symbolsShift(String text, int key) {
-        if (key < 0) {
-            key = symbols.size() + key;
-        }
         StringBuilder sb = new StringBuilder();
         for (char item : text.toCharArray()) {
             if (symbols.contains(item)) {
