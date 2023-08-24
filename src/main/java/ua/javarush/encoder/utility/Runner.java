@@ -1,5 +1,6 @@
 package ua.javarush.encoder.utility;
 
+import ua.javarush.encoder.brutforce.BrutForce;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.exceptions.WrongCommandRuntimeException;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class Runner {
 
     private final CaesarCipher caesarCipher;
+
     private final FileService fileService;
 
     public Runner(CaesarCipher caesarCipher, FileService fileService) {
@@ -34,27 +36,24 @@ public class Runner {
             consoleProvider.print("[e]ncrypt | [d]ecrypt | [b]ryte force");
             command = commandNormalize(consoleProvider.read());
             consoleProvider.print("Input source file path.");
-            sourceFilePath = Path.of(consoleProvider.read()); //TODO check if source file exists?
+            sourceFilePath = Path.of(consoleProvider.read());
             if (command == Commands.ENCRYPT || command == Commands.DECRYPT) {
                 consoleProvider.print("Input key.");
                 key = consoleProvider.readInt();
             }
         }
 
-
         ArrayList<String> outText = new ArrayList<>();
         switch (command) {
             case ENCRYPT -> getEncrypt(sourceFilePath, key, outText);
             case DECRYPT -> getDecrypt(sourceFilePath, key, outText);
-            case BRUTE_FORCE -> {
-                throw new RuntimeException("BRUTE_FORCE");
-            }
+            case BRUTE_FORCE -> getBrutForce(sourceFilePath, outText);
         }
 
         Path destinationFilePath = getDestinationFilePath(sourceFilePath, command);
         fileService.write(destinationFilePath, outText);
 
-        consoleProvider.print("Command completed.");
+        consoleProvider.print("Command " + command + "completed.");
 
     }
 
@@ -67,6 +66,15 @@ public class Runner {
 
     private void getDecrypt(Path sourceFilePath, int key, ArrayList<String> outText) {
         List<String> inputLines = fileService.read(sourceFilePath);
+        for (String line : inputLines) {
+            outText.add(caesarCipher.decoder(line, key));
+        }
+    }
+
+    private void getBrutForce(Path sourceFilePath, ArrayList<String> outText) {
+        List<String> inputLines = fileService.read(sourceFilePath);
+        BrutForce brutForce = new BrutForce(caesarCipher);
+        int key = brutForce.getBrutForсe(inputLines);
         for (String line : inputLines) {
             outText.add(caesarCipher.decoder(line, key));
         }
