@@ -1,7 +1,10 @@
-package ua.javarush.encoder.utility;
+package ua.javarush.encoder.runner;
 
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.exception.WrongCommandRuntimeException;
+import ua.javarush.encoder.utility.Command;
+import ua.javarush.encoder.utility.ConsoleProvider;
+import ua.javarush.encoder.utility.FileService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
