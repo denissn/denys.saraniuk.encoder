@@ -26,19 +26,9 @@ public class Runner {
     }
 
     public void run(String[] args) {
-        Command command;
-        Path sourceFilePath;
-        int key;
-
-        if (args.length > 0) {
-            command = getCommandFromParams(args);
-            sourceFilePath = getPathFromPrams(args);
-            key = getKeyFromPrams(args, command);
-        } else {
-            command = getCommandFromConsole();
-            sourceFilePath = getPathFromConsole();
-            key = getKeyFromConsole(command);
-        }
+        Command command = getCommand(args);
+        Path sourceFilePath = getPath(args);
+        int key = getKey(args, command);
 
         ArrayList<String> outText = new ArrayList<>();
         List<String> inputLines = fileService.read(sourceFilePath);
@@ -55,34 +45,29 @@ public class Runner {
         consoleProvider.print("Command " + command + " completed.");
     }
 
-    private Command getCommandFromParams(String[] args) {
-        return normalizeCommand(args[0]);
-    }
-
-    private Path getPathFromPrams(String[] args) {
-        return Path.of(args[1]);
-    }
-
-    private int getKeyFromPrams(String[] args, Command command) {
-        if (args.length > 2 && (command == Command.ENCRYPT || command == Command.DECRYPT)) {
-            return Integer.parseInt(args[2]);
+    private Command getCommand(String[] args) {
+        if (args.length > 0) {
+            return normalizeCommand(args[0]);
         }
-        return -1;
-    }
-
-    private Command getCommandFromConsole() {
         consoleProvider.print("Select one of the commands and press enter:");
         consoleProvider.print("[E]NCRYPT | [D]ECRYPT | [B]RUTE_FORCE");
         return normalizeCommand(consoleProvider.read());
     }
 
-    private Path getPathFromConsole() {
+    private Path getPath(String[] args) {
+        if (args.length > 0) {
+            return Path.of(args[1]);
+        }
         consoleProvider.print("Input source file path:");
         return Path.of(consoleProvider.read());
     }
 
-    private int getKeyFromConsole(Command command) {
-        if (command == Command.ENCRYPT || command == Command.DECRYPT) {
+    private int getKey(String[] args, Command command) {
+        if (args.length > 0) {
+            if (args.length > 2 && (command == Command.ENCRYPT || command == Command.DECRYPT)) { //TODO will think about this!
+                return Integer.parseInt(args[2]);
+            }
+        } else if (command == Command.ENCRYPT || command == Command.DECRYPT) {
             consoleProvider.print("Input key:");
             return Integer.parseInt(consoleProvider.read());
         }
