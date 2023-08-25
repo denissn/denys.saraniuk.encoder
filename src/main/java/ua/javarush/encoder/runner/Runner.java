@@ -36,13 +36,13 @@ public class Runner {
         switch (command) {
             case ENCRYPT -> getEncrypt(inputLines, key, outText);
             case DECRYPT -> getDecrypt(inputLines, key, outText);
-            case BRUTE_FORCE -> getBrutForce(inputLines, outText);
+            case BRUTE_FORCE -> key = getBrutForce(inputLines, outText);
         }
 
         Path destinationFilePath = getDestinationFilePath(sourceFilePath, command, key);
 
         fileService.write(destinationFilePath, outText);
-        consoleProvider.print("Command " + command + " completed.");
+        consoleProvider.print("Command " + command + " " + localeAlphabet +" completed.");
     }
 
     private Command getCommand(String[] args) {
@@ -64,7 +64,7 @@ public class Runner {
 
     private int getKey(String[] args, Command command) {
         if (args.length > 0) {
-            if (args.length > 2 && (command == Command.ENCRYPT || command == Command.DECRYPT)) { //TODO will think about this!
+            if (args.length > 2 && (command == Command.ENCRYPT || command == Command.DECRYPT)) {
                 return Integer.parseInt(args[2]);
             }
         } else if (command == Command.ENCRYPT || command == Command.DECRYPT) {
@@ -86,12 +86,13 @@ public class Runner {
         }
     }
 
-    private void getBrutForce(List<String> inputLines, ArrayList<String> outText) {
+    private int getBrutForce(List<String> inputLines, ArrayList<String> outText) {
         BruteForce bruteForce = new BruteForce(caesarCipher, localeAlphabet);
         int key = bruteForce.getBruteForce(inputLines);
         for (String line : inputLines) {
             outText.add(caesarCipher.decoder(line, key));
         }
+        return key;
     }
 
     private Command normalizeCommand(String consoleInputLine) {
