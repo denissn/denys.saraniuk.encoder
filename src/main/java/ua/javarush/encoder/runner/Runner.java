@@ -42,7 +42,7 @@ public class Runner {
         Path destinationFilePath = getDestinationFilePath(sourceFilePath, command, key);
 
         fileService.write(destinationFilePath, outText);
-        consoleProvider.print("Command " + command + " " + localeAlphabet +" completed.");
+        consoleProvider.print("Command:" + command + " alphabet:" + localeAlphabet + " key:" + key + " completed.");
     }
 
     private Command getCommand(String[] args) {

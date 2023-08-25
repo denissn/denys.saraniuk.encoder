@@ -17,6 +17,8 @@ public class BruteForce {
     public int getBruteForce(List<String> inputLines) {
         int key = -1;
         double keyMinDiff = Integer.MAX_VALUE;
+        char charOfMaxFrequency = 0;
+        double maxFrequencyOfChar = Double.MIN_VALUE;
         for (int i = 0; i < dictionary.size(); i++) { //by all key
             Map<Character, Integer> charsCount = new HashMap<>();
             int count = 0;
@@ -30,18 +32,27 @@ public class BruteForce {
                         } else {
                             charsCount.put(item, 1);
                         }
+                        if (dictionary.get(item) > maxFrequencyOfChar) {
+                            charOfMaxFrequency = item;
+                            maxFrequencyOfChar = dictionary.get(item);
+                        }
                     }
                 }
             }
             double localDiff = 0;
-            for (Map.Entry<Character, Integer> entry : charsCount.entrySet()) {
-                double diffChar = Math.abs(dictionary.get(entry.getKey()) - ((entry.getValue() * 1.0) / count));
-                localDiff += diffChar;
-            }
-            localDiff = localDiff / charsCount.size();
-            if (localDiff > 0 && keyMinDiff > localDiff) {
-                keyMinDiff = localDiff;
-                key = i;
+            if (count > 0) {
+                for (Map.Entry<Character, Integer> entry : charsCount.entrySet()) {
+                    if (charOfMaxFrequency == entry.getKey()) {
+                        double diffChar = Math.abs(dictionary.get(entry.getKey()) - ((entry.getValue() * 1.0) / count));
+                        localDiff += diffChar;
+                        break;
+                    }
+                }
+                localDiff = localDiff / charsCount.size();
+                if (localDiff > 0 && keyMinDiff > localDiff) {
+                    keyMinDiff = localDiff;
+                    key = i;
+                }
             }
         }
         return key;

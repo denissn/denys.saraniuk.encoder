@@ -13,7 +13,7 @@ public final class Dictionaries {
     private static final Map<Character, Double> EN = setEn();
     private static final Map<Character, Double> UA = setUa();
 
-    public static Map<Character, Double> getDictionary(LocaleAlphabet localeAlphabet){
+    public static Map<Character, Double> getDictionary(LocaleAlphabet localeAlphabet) {
         Map<Character, Double> dictionary;
         switch (localeAlphabet) {
             case UA, UA_WITH_SYMBOLS -> dictionary = UA;
@@ -55,39 +55,39 @@ public final class Dictionaries {
 
     private static Map<Character, Double> setUa() {
         Map<Character, Double> ua = new HashMap<>(33);
-        ua.put('а',0.064);
-        ua.put('б',0.013);
-        ua.put('в',0.046);
-        ua.put('г',0.013);
-        ua.put('ґ',0.0001);
-        ua.put('д',0.027);
-        ua.put('е',0.042);
-        ua.put('є',0.005);
-        ua.put('ж',0.007);
-        ua.put('з',0.020);
-        ua.put('и',0.055);
-        ua.put('і',0.044);
-        ua.put('ї',0.010);
-        ua.put('й',0.009);
-        ua.put('к',0.033);
-        ua.put('л',0.027);
-        ua.put('м',0.029);
-        ua.put('н',0.068);
-        ua.put('о',0.086);
-        ua.put('п',0.025);
-        ua.put('р',0.043);
-        ua.put('с',0.037);
-        ua.put('т',0.045);
-        ua.put('у',0.027);
-        ua.put('ф',0.003);
-        ua.put('х',0.011);
-        ua.put('ц',0.010);
-        ua.put('ч',0.011);
-        ua.put('ш',0.005);
-        ua.put('щ',0.004);
-        ua.put('ь',0.016);
-        ua.put('ю',0.008);
-        ua.put('я',0.019);
+        ua.put('а', 0.064);
+        ua.put('б', 0.013);
+        ua.put('в', 0.046);
+        ua.put('г', 0.013);
+        ua.put('ґ', 0.0001);
+        ua.put('д', 0.027);
+        ua.put('е', 0.042);
+        ua.put('є', 0.005);
+        ua.put('ж', 0.007);
+        ua.put('з', 0.020);
+        ua.put('и', 0.055);
+        ua.put('і', 0.044);
+        ua.put('ї', 0.010);
+        ua.put('й', 0.009);
+        ua.put('к', 0.033);
+        ua.put('л', 0.027);
+        ua.put('м', 0.029);
+        ua.put('н', 0.068);
+        ua.put('о', 0.086);
+        ua.put('п', 0.025);
+        ua.put('р', 0.043);
+        ua.put('с', 0.037);
+        ua.put('т', 0.045);
+        ua.put('у', 0.027);
+        ua.put('ф', 0.003);
+        ua.put('х', 0.011);
+        ua.put('ц', 0.010);
+        ua.put('ч', 0.011);
+        ua.put('ш', 0.005);
+        ua.put('щ', 0.004);
+        ua.put('ь', 0.016);
+        ua.put('ю', 0.008);
+        ua.put('я', 0.019);
         return ua;
     }
 }

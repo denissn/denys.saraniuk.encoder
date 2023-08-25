@@ -8,7 +8,7 @@ import ua.javarush.encoder.utility.LocaleAlphabet;
 public class CipherApplication {
     public static void main(String[] args) {
         FileService fileService = new FileService();
-        LocaleAlphabet localeAlphabet = LocaleAlphabet.EN;
+        LocaleAlphabet localeAlphabet = LocaleAlphabet.UA;
 
         CaesarCipher caesarCipher = new CaesarCipher(localeAlphabet);
 
