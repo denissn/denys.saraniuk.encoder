@@ -15,7 +15,7 @@ public class CaesarCipher {
     }
 
     public String decoder(String text, int key) {
-        key = symbols.size() - key;
+        key = symbols.size() - (key % symbols.size());
         return symbolsShift(text, key);
     }
 
