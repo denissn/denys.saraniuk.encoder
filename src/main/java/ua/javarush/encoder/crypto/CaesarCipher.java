@@ -1,13 +1,16 @@
 package ua.javarush.encoder.crypto;
 
+import ua.javarush.encoder.alphabet.Alphabets;
+import ua.javarush.encoder.utility.LocaleAlphabet;
+
 import java.util.ArrayList;
 
 public class CaesarCipher {
 
     private final ArrayList<Character> symbols;
 
-    public CaesarCipher(ArrayList<Character> symbols) {
-        this.symbols = symbols;
+    public CaesarCipher(LocaleAlphabet localeAlphabet) {
+        this.symbols = Alphabets.getAlphabet(localeAlphabet);
     }
 
     public String encoder(String text, int key) {

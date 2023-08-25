@@ -1,12 +1,12 @@
 package ua.javarush.encoder.runner;
 
 import ua.javarush.encoder.brutforce.BruteForce;
-import ua.javarush.encoder.brutforce.Dictionaries;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.exception.WrongCommandRuntimeException;
 import ua.javarush.encoder.utility.Command;
 import ua.javarush.encoder.utility.ConsoleProvider;
 import ua.javarush.encoder.utility.FileService;
+import ua.javarush.encoder.utility.LocaleAlphabet;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,13 +14,15 @@ import java.util.List;
 
 public class Runner {
 
-    private final CaesarCipher caesarCipher;
     private final FileService fileService;
+    private final CaesarCipher caesarCipher;
+    private final LocaleAlphabet localeAlphabet;
     private final ConsoleProvider consoleProvider = new ConsoleProvider();
 
-    public Runner(CaesarCipher caesarCipher, FileService fileService) {
+    public Runner(CaesarCipher caesarCipher, FileService fileService, LocaleAlphabet localeAlphabet) {
         this.caesarCipher = caesarCipher;
         this.fileService = fileService;
+        this.localeAlphabet = localeAlphabet;
     }
 
     public void run(String[] args) {
@@ -29,9 +31,9 @@ public class Runner {
         int key;
 
         if (args.length > 0) {
-            command = getCommandFromParams(args[0]);
-            sourceFilePath = getPathFromPrams(args[1]);
-            key = getKeyFromPrams(args[2], command);
+            command = getCommandFromParams(args);
+            sourceFilePath = getPathFromPrams(args);
+            key = getKeyFromPrams(args, command);
         } else {
             command = getCommandFromConsole();
             sourceFilePath = getPathFromConsole();
@@ -53,17 +55,17 @@ public class Runner {
         consoleProvider.print("Command " + command + " completed.");
     }
 
-    private Command getCommandFromParams(String argument) {
-        return normalizeCommand(argument);
+    private Command getCommandFromParams(String[] args) {
+        return normalizeCommand(args[0]);
     }
 
-    private Path getPathFromPrams(String argument) {
-        return Path.of(argument);
+    private Path getPathFromPrams(String[] args) {
+        return Path.of(args[1]);
     }
 
-    private int getKeyFromPrams(String argument, Command command) {
-        if (argument != null && (command == Command.ENCRYPT || command == Command.DECRYPT)) {
-            return Integer.parseInt(argument);
+    private int getKeyFromPrams(String[] args, Command command) {
+        if (args.length > 2 && (command == Command.ENCRYPT || command == Command.DECRYPT)) {
+            return Integer.parseInt(args[2]);
         }
         return -1;
     }
@@ -100,7 +102,7 @@ public class Runner {
     }
 
     private void getBrutForce(List<String> inputLines, ArrayList<String> outText) {
-        BruteForce bruteForce = new BruteForce(caesarCipher, Dictionaries.getDictionaryEn());
+        BruteForce bruteForce = new BruteForce(caesarCipher, localeAlphabet);
         int key = bruteForce.getBruteForce(inputLines);
         for (String line : inputLines) {
             outText.add(caesarCipher.decoder(line, key));

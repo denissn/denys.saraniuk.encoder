@@ -1,5 +1,7 @@
 package ua.javarush.encoder.alphabet;
 
+import ua.javarush.encoder.utility.LocaleAlphabet;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -9,20 +11,15 @@ public final class Alphabets {
     private Alphabets() {
     }
 
-    public static ArrayList<Character> getEn() {
-        return EN;
-    }
-
-    public static ArrayList<Character> getEnWithSymbols() {
-        return EN_WITH_SYMBOLS;
-    }
-
-    public static ArrayList<Character> getUa() {
-        return UA;
-    }
-
-    public static ArrayList<Character> getUaWithSymbols() {
-        return UA_WITH_SYMBOLS;
+    public static ArrayList<Character> getAlphabet(LocaleAlphabet localeAlphabet) {
+        ArrayList<Character> alphabet;
+        switch (localeAlphabet) {
+            case EN_WITH_SYMBOLS -> alphabet = Alphabets.EN_WITH_SYMBOLS;
+            case UA -> alphabet = Alphabets.UA;
+            case UA_WITH_SYMBOLS -> alphabet = Alphabets.UA_WITH_SYMBOLS;
+            default -> alphabet = Alphabets.EN;
+        }
+        return alphabet;
     }
 
     private static final ArrayList<Character> EN =

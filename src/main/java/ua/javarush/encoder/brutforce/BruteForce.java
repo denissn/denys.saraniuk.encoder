@@ -1,6 +1,7 @@
 package ua.javarush.encoder.brutforce;
 
 import ua.javarush.encoder.crypto.CaesarCipher;
+import ua.javarush.encoder.utility.LocaleAlphabet;
 
 import java.util.*;
 
@@ -8,9 +9,9 @@ public class BruteForce {
     private final CaesarCipher caesarCipher;
     private Map<Character, Double> dictionary;
 
-    public BruteForce(CaesarCipher caesarCipher, Map<Character, Double> dictionary) {
+    public BruteForce(CaesarCipher caesarCipher, LocaleAlphabet localeAlphabet) {
         this.caesarCipher = caesarCipher;
-        this.dictionary = dictionary;
+        this.dictionary = Dictionaries.getDictionary(localeAlphabet);
     }
 
     public int getBruteForce(List<String> inputLines) {

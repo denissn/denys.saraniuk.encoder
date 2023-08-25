@@ -1,5 +1,9 @@
 package ua.javarush.encoder.brutforce;
 
+import ua.javarush.encoder.alphabet.Alphabets;
+import ua.javarush.encoder.utility.LocaleAlphabet;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,12 +15,13 @@ public final class Dictionaries {
     private static final Map<Character, Double> EN = fillEn();
     private static final Map<Character, Double> UA = fillUa();
 
-    public static Map<Character, Double> getDictionaryEn(){
-        return EN;
-    }
-
-    public static Map<Character, Double> getDictionaryUa(){
-        return UA;
+    public static Map<Character, Double> getDictionary(LocaleAlphabet localeAlphabet){
+        Map<Character, Double> dictionary;
+        switch (localeAlphabet) {
+            case UA, UA_WITH_SYMBOLS -> dictionary = UA;
+            default -> dictionary = EN;
+        }
+        return dictionary;
     }
 
     private static Map<Character, Double> fillEn() {
