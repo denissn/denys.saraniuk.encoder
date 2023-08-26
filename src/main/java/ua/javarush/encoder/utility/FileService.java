@@ -2,7 +2,6 @@ package ua.javarush.encoder.utility;
 
 import ua.javarush.encoder.exception.*;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;

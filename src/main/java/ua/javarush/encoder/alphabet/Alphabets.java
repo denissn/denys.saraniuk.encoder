@@ -4,7 +4,6 @@ import ua.javarush.encoder.utility.LocaleAlphabet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 public final class Alphabets {
 
