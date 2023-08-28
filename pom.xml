@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ua.javarush.encoder.CipherApplication.java</mainClass>
+                            <mainClass>ua.javarush.encoder.CipherApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

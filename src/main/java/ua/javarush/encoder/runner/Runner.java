@@ -1,6 +1,6 @@
 package ua.javarush.encoder.runner;
 
-import ua.javarush.encoder.brutforce.BruteForce;
+import ua.javarush.encoder.bruteforce.BruteForce;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.exception.WrongCommandRuntimeException;
 import ua.javarush.encoder.utility.Command;

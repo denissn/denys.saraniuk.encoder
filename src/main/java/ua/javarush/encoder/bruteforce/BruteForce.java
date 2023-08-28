@@ -1,4 +1,4 @@
-package ua.javarush.encoder.brutforce;
+package ua.javarush.encoder.bruteforce;
 
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.utility.LocaleAlphabet;
