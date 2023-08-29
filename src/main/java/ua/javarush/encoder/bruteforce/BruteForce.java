@@ -24,7 +24,7 @@ public class BruteForce {
         for (int i = 0; i < dictionary.size(); i++) { //by all key
             Map<Character, Integer> charsByKey = getCharsMapByKey(inputLines, i);
             double localDiff = getDiffForChar(charsByKey);
-            if (localDiff > 0 && minDiff > localDiff) {
+            if (localDiff >= 0 && minDiff > localDiff) {
                 minDiff = localDiff;
                 key = i;
             }
