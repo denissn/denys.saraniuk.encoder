@@ -3,7 +3,10 @@ package ua.javarush.encoder.bruteforce;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.utility.LocaleAlphabet;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class BruteForce {
     private final CaesarCipher caesarCipher;

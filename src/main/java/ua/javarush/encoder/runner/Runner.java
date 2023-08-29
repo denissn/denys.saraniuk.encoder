@@ -17,12 +17,13 @@ public class Runner {
     private final FileService fileService;
     private final CaesarCipher caesarCipher;
     private final LocaleAlphabet localeAlphabet;
-    private final ConsoleProvider consoleProvider = new ConsoleProvider();
+    private final ConsoleProvider consoleProvider;
 
-    public Runner(CaesarCipher caesarCipher, FileService fileService, LocaleAlphabet localeAlphabet) {
+    public Runner(CaesarCipher caesarCipher, FileService fileService, ConsoleProvider consoleProvider, LocaleAlphabet localeAlphabet) {
         this.caesarCipher = caesarCipher;
         this.fileService = fileService;
         this.localeAlphabet = localeAlphabet;
+        this.consoleProvider = consoleProvider;
     }
 
     public void run(String[] args) {
