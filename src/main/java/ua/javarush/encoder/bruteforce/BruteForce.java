@@ -3,6 +3,7 @@ package ua.javarush.encoder.bruteforce;
 import ua.javarush.encoder.crypto.CaesarCipher;
 import ua.javarush.encoder.utility.LocaleAlphabet;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,45 +20,40 @@ public class BruteForce {
 
     public int getBruteForce(List<String> inputLines) {
         int key = -1;
-        double keyMinDiff = Integer.MAX_VALUE;
-        char charOfMaxFrequency = 0;
-        double maxFrequencyOfChar = Double.MIN_VALUE;
+        double minDiff = Integer.MAX_VALUE;
         for (int i = 0; i < dictionary.size(); i++) { //by all key
-            Map<Character, Integer> charsCount = new HashMap<>();
-            int count = 0;
-            for (String line : inputLines) {
-                String decodedLine = caesarCipher.decoder(line, i).toLowerCase();
-                for (char item : decodedLine.toCharArray()) {
-                    if (dictionary.containsKey(item)) {
-                        count++;
-                        if (charsCount.containsKey(item)) {
-                            charsCount.put(item, charsCount.get(item) + 1);
-                        } else {
-                            charsCount.put(item, 1);
-                        }
-                        if (dictionary.get(item) > maxFrequencyOfChar) {
-                            charOfMaxFrequency = item;
-                            maxFrequencyOfChar = dictionary.get(item);
-                        }
-                    }
-                }
-            }
-            double localDiff = 0;
-            if (count > 0) {
-                for (Map.Entry<Character, Integer> entry : charsCount.entrySet()) {
-                    if (charOfMaxFrequency == entry.getKey()) {
-                        double diffChar = Math.abs(dictionary.get(entry.getKey()) - ((entry.getValue() * 1.0) / count));
-                        localDiff += diffChar;
-                        break;
-                    }
-                }
-                localDiff = localDiff / charsCount.size();
-                if (localDiff > 0 && keyMinDiff > localDiff) {
-                    keyMinDiff = localDiff;
-                    key = i;
-                }
+            Map<Character, Integer> charsByKey = getCharsMapByKey(inputLines, i);
+            double localDiff = getDiffForChar(charsByKey);
+            if (localDiff > 0 && minDiff > localDiff) {
+                minDiff = localDiff;
+                key = i;
             }
         }
         return key;
+    }
+
+    private double getDiffForChar(Map<Character, Integer> charsByKey) {
+        char charWithMaxFrequency = 0;
+        Map<Character, Double> tempDictionary = new HashMap<>(dictionary);
+        tempDictionary.keySet().retainAll(charsByKey.keySet());
+        charsByKey.keySet().retainAll(tempDictionary.keySet());
+        int charsAmount = charsByKey.values().stream().mapToInt(Integer::intValue).sum();
+        double localDiff = -1;
+        if (!tempDictionary.isEmpty()) {
+            charWithMaxFrequency = Collections.max(tempDictionary.entrySet(), Map.Entry.comparingByValue()).getKey();
+            localDiff = Math.abs(tempDictionary.get(charWithMaxFrequency) - ((charsByKey.get(charWithMaxFrequency) * 1.0) / charsAmount));
+        }
+        return localDiff;
+    }
+
+    private Map<Character, Integer> getCharsMapByKey(List<String> inputLines, int i) {
+        Map<Character, Integer> charsByKey = new HashMap<>();
+        for (String line : inputLines) {
+            String decodedLine = caesarCipher.decoder(line, i).toLowerCase();
+            for (char item : decodedLine.toCharArray()) {
+                charsByKey.merge(item, 1, Integer::sum);
+            }
+        }
+        return charsByKey;
     }
 }
