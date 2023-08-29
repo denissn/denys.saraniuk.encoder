@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BruteForce {
     private final CaesarCipher caesarCipher;
-    private Map<Character, Double> dictionary;
+    private final Map<Character, Double> dictionary;
 
     public BruteForce(CaesarCipher caesarCipher, LocaleAlphabet localeAlphabet) {
         this.caesarCipher = caesarCipher;
